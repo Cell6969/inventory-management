@@ -150,7 +150,7 @@
 
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/user-11.jpg" alt="user-image" class="rounded-circle">
+                        <img src="{{asset('admin/assets/images/users/user-11.jpg')}}" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ms-1">
                                         Christian <i class="mdi mdi-chevron-down"></i>
                                     </span>
@@ -176,11 +176,10 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->
-                        <a href="auth-logout.html" class="dropdown-item notify-item">
+                        <a href="{{route('admin.logout')}}" class="dropdown-item notify-item">
                             <i class="mdi mdi-location-exit fs-16 align-middle"></i>
                             <span>Logout</span>
                         </a>
-
                     </div>
                 </li>
 
