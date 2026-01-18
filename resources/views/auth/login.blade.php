@@ -41,6 +41,9 @@
                                     <div class="form-group mb-3">
                                         <label for="emailaddress" class="form-label">Email address</label>
                                         <input class="form-control" type="email" id="email" name="email" required="" placeholder="Enter your email">
+                                        @error('email')
+                                            <small class="text-danger">{{$message}}</small>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group mb-3">
