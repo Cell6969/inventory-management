@@ -42,16 +42,25 @@
                                     <div class="form-group mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input class="form-control" name="name" type="text" id="name" required="" placeholder="Enter your name">
+                                        @error('name')
+                                            <small class="text text-danger">{{$message}}</small>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="email" class="form-label">Email address</label>
                                         <input class="form-control" name="email" type="email" id="email" required="" placeholder="Enter your email">
+                                        @error('email')
+                                            <small class="text text-danger">{{$message}}</small>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input class="form-control" name="password" type="password" required="" id="password" placeholder="Enter your password">
+                                        @error('password')
+                                            <small class="text text-danger">{{$message}}</small>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group mb-3">
