@@ -22,3 +22,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/verification', [AdminController::class, 'showVerification'])->name('custom.verification.form');
+Route::post('/verification', [AdminController::class, 'submitVerification'])->name('custom.verification.submit');
