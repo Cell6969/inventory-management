@@ -25,3 +25,9 @@ Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.lo
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::get('/verification', [AdminController::class, 'showVerification'])->name('custom.verification.form');
 Route::post('/verification', [AdminController::class, 'submitVerification'])->name('custom.verification.submit');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [AdminController::class, 'showProfile'])->name('admin.profile.show');
+    Route::post('/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.store');
+});
+

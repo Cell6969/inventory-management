@@ -59,4 +59,52 @@ class AdminController extends Controller
 
         return redirect()->back()->withErrors(['code' => 'Invalid verification code.']);
     }
+
+    public function showProfile(Request $request)
+    {
+        $user = Auth::user();
+        return view('admin.pages.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'nullable|string|max:15',
+            'address' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+
+        $oldPhoto = $user->photo;
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('photo'),$filename);
+            $user->photo = $filename;
+
+            if ($oldPhoto && $oldPhoto != $filename) {
+                $this->deleteOldImage($oldPhoto);
+            }
+        }
+
+        $user->save();
+        return redirect()->back();
+    }
+
+    private function deleteOldImage($oldPhoto) : void
+    {
+        $full_path = public_path('photo/' . $oldPhoto);
+        if (file_exists($full_path)) {
+            unlink($full_path);
+        }
+    }
 }
