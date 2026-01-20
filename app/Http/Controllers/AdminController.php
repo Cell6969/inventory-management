@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\VerificationCodeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -111,5 +112,32 @@ class AdminController extends Controller
         if (file_exists($full_path)) {
             unlink($full_path);
         }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            "old_password" => "required|string",
+            "new_password" => "required|string|confirmed",
+        ]);
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            $notification = array(
+                'message' => 'Old Password did not match!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        User::query()->where('id', $user->id)->update([
+            "password" => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password updated successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

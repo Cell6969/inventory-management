@@ -29,5 +29,6 @@ Route::post('/verification', [AdminController::class, 'submitVerification'])->na
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [AdminController::class, 'showProfile'])->name('admin.profile.show');
     Route::post('/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.store');
+    Route::post('/admin/password', [AdminController::class, 'updatePassword'])->name('admin.password.update');
 });
 
